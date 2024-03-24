@@ -24,9 +24,9 @@ public class App
         Validator<Tema> temaValidator = new TemaValidator();
         Validator<Nota> notaValidator = new NotaValidator();
 
-        StudentXMLRepository fileRepository1 = new StudentXMLRepository(studentValidator, "studenti.xml");
-        TemaXMLRepository fileRepository2 = new TemaXMLRepository(temaValidator, "teme.xml");
-        NotaXMLRepository fileRepository3 = new NotaXMLRepository(notaValidator, "note.xml");
+        StudentXMLRepository fileRepository1 = new StudentXMLRepository(studentValidator, "fisiere/studenti.xml");
+        TemaXMLRepository fileRepository2 = new TemaXMLRepository(temaValidator, "fisiere/teme.xml");
+        NotaXMLRepository fileRepository3 = new NotaXMLRepository(notaValidator, "fisiere/note.xml");
 
         Service service = new Service(fileRepository1, fileRepository2, fileRepository3);
         UI consola = new UI(service);
