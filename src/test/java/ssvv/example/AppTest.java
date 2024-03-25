@@ -35,14 +35,6 @@ public class AppTest
         return new TestSuite( AppTest.class );
     }
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
-    }
-
     public void testEmptyId() {
         StudentXMLRepository studentXMLRepository = new StudentXMLRepository(new StudentValidator(), "");
         TemaXMLRepository temaXmlRepo = new TemaXMLRepository(new TemaValidator(), "");
