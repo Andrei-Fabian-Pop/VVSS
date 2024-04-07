@@ -35,6 +35,23 @@ public class AppTest
         return new TestSuite( AppTest.class );
     }
 
+    public void testGoodEntity() {
+        StudentXMLRepository studentXMLRepository = new StudentXMLRepository(new StudentValidator(), "");
+        TemaXMLRepository temaXmlRepo = new TemaXMLRepository(new TemaValidator(), "");
+        NotaXMLRepository notaXmlRepo = new NotaXMLRepository(new NotaValidator(), "");
+
+        Service service = new Service(studentXMLRepository, temaXmlRepo, notaXmlRepo);
+
+        String id = "88";
+        String description = "coverage";
+        int deadline = 10;
+        int startline = 9;
+
+        int result = service.saveTema(id, description, deadline, startline);
+
+        assertEquals(result, 0);
+    }
+
     public void testEmptyId() {
         StudentXMLRepository studentXMLRepository = new StudentXMLRepository(new StudentValidator(), "");
         TemaXMLRepository temaXmlRepo = new TemaXMLRepository(new TemaValidator(), "");
@@ -45,7 +62,7 @@ public class AppTest
         String id = "";
         String description = "coverage";
         int deadline = 10;
-        int startline = 0;
+        int startline = 9;
 
         int result = service.saveTema(id, description, deadline, startline);
 
