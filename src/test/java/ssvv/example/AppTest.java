@@ -43,7 +43,7 @@ public class AppTest
         assertTrue( true );
     }
 
-    public void testEmptyLineId() {
+    public void testAddAssignment() {
         StudentXMLRepository studentXMLRepository = new StudentXMLRepository(new StudentValidator(), "");
         TemaXMLRepository temaXmlRepo = new TemaXMLRepository(new TemaValidator(), "");
         NotaXMLRepository notaXmlRepo = new NotaXMLRepository(new NotaValidator(), "");
@@ -51,18 +51,19 @@ public class AppTest
         Service service = new Service(studentXMLRepository, temaXmlRepo, notaXmlRepo);
 
         // Arrange
-        String id = "";
-        String nume = "Andrei";
-        int grupa = 936;
+        String id = "1";
+        String descriere = "HW on Testing";
+        int deadline = 10;
+        int startline = 8;
 
         // Act
-        int result = service.saveStudent(id, nume, grupa);
+        int result = service.saveTema(id, descriere, deadline, startline);
 
         // Assert
-        assertEquals(1, result);
+        assertEquals(0, result);
     }
 
-    public void testEmptyLineName() {
+    public void testAddStudent() {
         StudentXMLRepository studentXMLRepository = new StudentXMLRepository(new StudentValidator(), "");
         TemaXMLRepository temaXmlRepo = new TemaXMLRepository(new TemaValidator(), "");
         NotaXMLRepository notaXmlRepo = new NotaXMLRepository(new NotaValidator(), "");
@@ -71,17 +72,17 @@ public class AppTest
 
         // Arrange
         String id = "0";
-        String nume = "";
+        String nume = "Andrei";
         int grupa = 936;
 
         // Act
         int result = service.saveStudent(id, nume, grupa);
 
         // Assert
-        assertEquals(1, result);
+        assertEquals(0, result);
     }
 
-    public void testGroupRange() {
+    public void testAddGrade() {
         StudentXMLRepository studentXMLRepository = new StudentXMLRepository(new StudentValidator(), "");
         TemaXMLRepository temaXmlRepo = new TemaXMLRepository(new TemaValidator(), "");
         NotaXMLRepository notaXmlRepo = new NotaXMLRepository(new NotaValidator(), "");
@@ -89,23 +90,34 @@ public class AppTest
         Service service = new Service(studentXMLRepository, temaXmlRepo, notaXmlRepo);
 
         // Arrange
+        String idStudent = "100";
         String nume = "Andrei";
-        int groupOk = 936;
-        int groupLess = 1;
-        int groupMore = 1000;
+        int grupa = 936;
 
         // Act
-        int resultsuccess = service.saveStudent("10", nume, groupOk);
-        int resultFailLess = service.saveStudent("11", nume, groupLess);
-        int resultFailmore = service.saveStudent("12", nume, groupMore);
+        int resultStudent = service.saveStudent(idStudent, nume, grupa);
+
+        String idAssignment = "100";
+        String descriere = "HW on Testing";
+        int deadline = 10;
+        int startline = 8;
+
+        // Act
+        int resultTema = service.saveTema(idAssignment, descriere, deadline, startline);
+
+        // Arrange
+        double nota = 5;
+        int predata = 9;
+        String feedback = "none";
+
+        // Act
+        int resultsuccess = service.saveNota(idStudent, idAssignment, nota, predata, feedback);
 
         // Assert
         assertEquals(0, resultsuccess);
-        assertEquals(1, resultFailLess);
-        assertEquals(1, resultFailmore);
     }
 
-    public void testSameId() {
+    public void testAddStudentGradeAssignment() {
         StudentXMLRepository studentXMLRepository = new StudentXMLRepository(new StudentValidator(), "");
         TemaXMLRepository temaXmlRepo = new TemaXMLRepository(new TemaValidator(), "");
         NotaXMLRepository notaXmlRepo = new NotaXMLRepository(new NotaValidator(), "");
@@ -113,35 +125,30 @@ public class AppTest
         Service service = new Service(studentXMLRepository, temaXmlRepo, notaXmlRepo);
 
         // Arrange
-        String id = "20";
+        String idStudent = "100";
         String nume = "Andrei";
         int grupa = 936;
 
         // Act
-        int resultSuccess = service.saveStudent(id, nume, grupa);
-        int resultFail = service.saveStudent(id, nume, grupa);
+        int resultStudent = service.saveStudent(idStudent, nume, grupa);
+        assertEquals(0, resultStudent);
 
-        // Assert
-        assertEquals(0, resultSuccess);
-        assertEquals(1, resultFail);
-    }
-
-    public void testGoodEntity() {
-        StudentXMLRepository studentXMLRepository = new StudentXMLRepository(new StudentValidator(), "");
-        TemaXMLRepository temaXmlRepo = new TemaXMLRepository(new TemaValidator(), "");
-        NotaXMLRepository notaXmlRepo = new NotaXMLRepository(new NotaValidator(), "");
-
-        Service service = new Service(studentXMLRepository, temaXmlRepo, notaXmlRepo);
-
-        // Arrange
-        String id = "0";
-        String nume = "Andrei Pop Fabian";
-        int grupa = 936;
+        String idAssignment = "100";
+        String descriere = "HW on Testing";
+        int deadline = 10;
+        int startline = 8;
 
         // Act
-        int resultSuccess = service.saveStudent(id, nume, grupa);
+        int resultTema = service.saveTema(idAssignment, descriere, deadline, startline);
+        assertEquals(0, resultTema);
 
-        // Assert
-        assertEquals(0, resultSuccess);
+        // Arrange
+        double nota = 5;
+        int predata = 9;
+        String feedback = "none";
+
+        // Act
+        int resultsuccess = service.saveNota(idStudent, idAssignment, nota, predata, feedback);
+        assertEquals(0, resultsuccess);
     }
 }
